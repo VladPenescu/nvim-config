@@ -18,6 +18,6 @@ null_ls.setup({
 		formatting.stylua,
 		diagnostics.djlint,
 		diagnostics.gdlint,
-		diagnostics.mypy.with({ extra_args = { "--strict", "--ignore-missing-imports" } }),
+		-- diagnostics.mypy.with({ extra_args = { "--strict", "--ignore-missing-imports" } }),
 	},
 })

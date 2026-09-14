@@ -58,7 +58,6 @@ require("mason-lspconfig").setup({
 		"omnisharp",
 		"glsl_analyzer",
 	},
-	automatic_installation = true,
 	handlers = {
 		-- Default handler - uses vim.lsp.config instead of lspconfig
 		function(server_name)
@@ -116,24 +115,6 @@ require("mason-lspconfig").setup({
 			})
 		end,
 
-		["pyright"] = function()
-			vim.lsp.config("pyright", {
-				capabilities = capabilities,
-				settings = {
-					pyright = {
-						autoImportCompletion = true,
-					},
-					python = {
-						analysis = {
-							autoSearchPaths = true,
-							diagnosticMode = "openFilesOnly",
-							useLibraryCodeForTypes = true,
-							typeCheckingMode = "off",
-						},
-					},
-				},
-			})
-		end,
 		["roslyn"] = function()
 			-- Don't use vim.lsp.config for roslyn, use the plugin instead
 			require("roslyn").setup({
@@ -194,6 +175,23 @@ require("mason-lspconfig").setup({
 		end,
 	},
 })
+vim.lsp.config("pyright", {
+	capabilities = capabilities,
+	settings = {
+		pyright = {
+			autoImportCompletion = true,
+		},
+		python = {
+			analysis = {
+				autoSearchPaths = true,
+				diagnosticMode = "openFilesOnly",
+				useLibraryCodeForTypes = true,
+				typeCheckingMode = "strict",
+			},
+		},
+	},
+})
+vim.lsp.enable("pyright")
 
 -- Global LSP handlers with rounded borders
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
