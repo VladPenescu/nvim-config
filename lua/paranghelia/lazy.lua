@@ -150,7 +150,6 @@ require("lazy").setup({
 
 	-- Autocomplete
 	{ "nvimtools/none-ls.nvim" },
-	{ "MunifTanjim/prettier.nvim" },
 	{ "hrsh7th/nvim-cmp" },
 	{ "hrsh7th/cmp-path" },
 	{ "hrsh7th/cmp-cmdline" },

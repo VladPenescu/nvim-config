@@ -11,7 +11,6 @@ null_ls.setup({
 	debug = false,
 	sources = {
 		formatting.black.with({ extra_args = { "--fast" } }),
-		-- formatting.prettierd,
 		formatting.biome.with({ command = "biome" }),
 		formatting.gdformat,
 		formatting.djlint,
