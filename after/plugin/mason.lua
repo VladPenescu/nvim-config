@@ -55,6 +55,7 @@ require("mason-lspconfig").setup({
 		"html",
 		"cssls",
 		"tailwindcss",
+		"eslint",
 		"omnisharp",
 		"glsl_analyzer",
 	},
@@ -92,28 +93,6 @@ require("mason-lspconfig").setup({
 			})
 		end,
 
-		["ts_ls"] = function()
-			vim.lsp.config("ts_ls", {
-				capabilities = capabilities,
-				handlers = {
-					["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-						severity_sort = true,
-						update_in_insert = false,
-					}),
-				},
-				on_attach = function(client, bufnr)
-					-- Disable TypeScript LSP formatting (let Biome handle it)
-					client.server_capabilities.documentFormattingProvider = false
-					client.server_capabilities.documentRangeFormattingProvider = false
-
-					-- Change unused variable diagnostics to hints
-					vim.diagnostic.config({
-						severity_sort = true,
-						float = { border = "rounded" },
-					}, bufnr)
-				end,
-			})
-		end,
 
 		["roslyn"] = function()
 			-- Don't use vim.lsp.config for roslyn, use the plugin instead
@@ -192,6 +171,20 @@ vim.lsp.config("pyright", {
 	},
 })
 vim.lsp.enable("pyright")
+
+vim.lsp.config("ts_ls", {
+	capabilities = capabilities,
+	on_attach = function(client, bufnr)
+		-- Disable TypeScript LSP formatting (let Biome handle it)
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.documentRangeFormattingProvider = false
+
+		vim.diagnostic.config({
+			severity_sort = true,
+			float = { border = "rounded" },
+		}, bufnr)
+	end,
+})
 
 -- Global LSP handlers with rounded borders
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
